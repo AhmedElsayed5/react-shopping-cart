@@ -1,0 +1,16 @@
+.shop__content {
+  margin-bottom: 100px;
+}
+.shop__title {
+  margin-bottom: 100px;
+  text-align: center;
+  font-size: 40px;
+}
+
+.shop__products {
+  width: 100%;
+  height: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  place-items: center;
+}
