@@ -1,6 +1,14 @@
-import React from "react";
+import React, { useCallback, useContext } from "react";
 import "./Product.css";
+import { ShopContext } from "../../context/ShopContext";
+
 const Product = ({ item }) => {
+  const { addToCart } = useContext(ShopContext);
+
+  const handleAddCart = useCallback(() => {
+    // console.log(evt.target.classList);
+    addToCart(item.id);
+  }, [item]);
   return (
     <div className="product">
       <img
@@ -14,7 +22,9 @@ const Product = ({ item }) => {
         </p>
         <p>${item.price}</p>
       </div>
-      <button className="product__add-btn">Add to Cart</button>
+      <button className="product__add-btn" onClick={handleAddCart}>
+        Add to Cart
+      </button>
     </div>
   );
 };
