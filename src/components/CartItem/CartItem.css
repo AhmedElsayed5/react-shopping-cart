@@ -1,0 +1,33 @@
+.cartItems {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cartItem {
+  width: 700px;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 25px;
+  margin: 30px;
+}
+
+.cartItem__image {
+  width: 200px;
+  height: 200px;
+}
+
+.cartItem__count-handler {
+  width: 40px;
+  text-align: center;
+  font-weight: bolder;
+  display: flex;
+  flex-direction: column;
+}
+
+.cartItem__input {
+  text-align: center;
+}

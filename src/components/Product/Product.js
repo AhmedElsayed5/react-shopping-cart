@@ -3,12 +3,13 @@ import "./Product.css";
 import { ShopContext } from "../../context/ShopContext";
 
 const Product = ({ item }) => {
-  const { addToCart } = useContext(ShopContext);
+  const { addToCart, cartItems } = useContext(ShopContext);
 
   const handleAddCart = useCallback(() => {
-    // console.log(evt.target.classList);
     addToCart(item.id);
   }, [item]);
+  const cartItemAmount = cartItems.find((x) => x.id === item.id);
+  // console.log(cartItemAmount);
   return (
     <div className="product">
       <img
@@ -23,7 +24,7 @@ const Product = ({ item }) => {
         <p>${item.price}</p>
       </div>
       <button className="product__add-btn" onClick={handleAddCart}>
-        Add to Cart
+        Add to Cart {cartItemAmount.count > 0 && <>({cartItemAmount.count})</>}
       </button>
     </div>
   );

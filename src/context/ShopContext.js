@@ -5,34 +5,51 @@ export const ShopContext = createContext({ cartItems: [] });
 
 const getDefaultCart = () => PRODUCTS.map((x) => ({ id: x.id, count: 0 }));
 export const ShopContextProvider = (props) => {
-  console.log(getDefaultCart());
-
-  // useState(getDefaultCart());
-
   const [cartItems, setCartItems] = useState(getDefaultCart());
-  // setCartItems(getDefaultCart());
+
+  const getTotalAmount = () => {
+    let totalPrice = 0;
+    cartItems.forEach((element) => {
+      let priceNumber = PRODUCTS.find((x) => x.id === element.id);
+      console.log(priceNumber);
+      totalPrice += priceNumber.price * element.count;
+    });
+    console.log(totalPrice);
+    return totalPrice;
+  };
 
   const addToCart = (itemId) => {
-    console.log(itemId);
-    //if item exists, increment
-
-    //else add item first time
     const item = cartItems.find((x) => x.id === itemId);
-    console.log(item);
     item.count++;
-    console.log(item);
     const filteredItems = cartItems.filter((x) => x.id !== itemId);
-    console.log(filteredItems);
     setCartItems([...filteredItems, item]);
   };
 
   const deleteFromCart = (itemId) => {
-    setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId - 1] }));
+    const item = cartItems.find((x) => x.id === itemId);
+    if (item.count > 0) {
+      item.count--;
+      const filteredItems = cartItems.filter((x) => x.id !== itemId);
+      setCartItems([...filteredItems, item]);
+    }
   };
 
-  const contextValue = { cartItems, addToCart, deleteFromCart };
-  console.log(cartItems);
-  // debugger;
+  const updateCartCount = (newValue, itemId) => {
+    const item = cartItems.find((x) => x.id === itemId);
+    if (newValue >= 0 && newValue <= 1000) {
+      item.count = newValue;
+      const filteredItems = cartItems.filter((x) => x.id !== itemId);
+      setCartItems([...filteredItems, item]);
+    }
+  };
+
+  const contextValue = {
+    cartItems,
+    addToCart,
+    deleteFromCart,
+    updateCartCount,
+    getTotalAmount,
+  };
   return (
     <ShopContext.Provider value={contextValue}>
       {props.children}
